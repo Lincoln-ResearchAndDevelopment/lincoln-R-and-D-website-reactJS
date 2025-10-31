@@ -1,0 +1,155 @@
+/* Footer Styles */
+:root {
+  --primary-red: #dc2626;
+  --pure-white: #ffffff;
+  --dark-gray: #000000;
+  --transition: all 0.3s ease;
+}
+
+footer {
+  background-color: var(--pure-white);
+  color: var(--dark-gray);
+  padding: 3rem 2rem 0;
+  position: relative;
+}
+
+.footer-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  max-width: 1200px;
+  margin: 0 auto;
+  gap: 2rem;
+}
+
+.footer-section {
+  flex: 1;
+  min-width: 250px;
+  margin-bottom: 2rem;
+}
+
+.footer-section h3 {
+  color: var(--primary-red);
+  font-size: 1.3rem;
+  margin-bottom: 1.5rem;
+  position: relative;
+  padding-bottom: 0.5rem;
+}
+
+.footer-section h3::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 50px;
+  height: 2px;
+  background-color: var(--primary-red);
+}
+
+.footer-section p {
+  font-size: 0.95rem;
+  line-height: 1.6;
+  margin-bottom: 1rem;
+  color: rgba(0, 0, 0, 0.8);
+}
+
+.links {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.links li {
+  margin-bottom: 0.8rem;
+}
+
+.links .foot-text-link {
+  color: rgba(0, 0, 0, 0.8);
+  text-decoration: none;
+  transition: var(--transition);
+  display: inline-block;
+  padding: 0.2rem 0;
+}
+
+.links .foot-text-link:hover {
+  color: var(--primary-red);
+  transform: translateX(5px);
+}
+
+.social-links {
+  display: flex;
+  gap: 1rem;
+  margin-top: 1rem;
+}
+
+.social-links a {
+  color: var(--primary-red);
+  background-color: rgba(0, 0, 0, 0.05);
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: var(--transition);
+}
+
+.social-links a:hover {
+  background-color: var(--primary-red);
+  color: var(--pure-white);
+  transform: translateY(-3px);
+}
+
+.footer-bottom {
+  padding: 1.5rem;
+  background-color: var(--pure-white);
+  color: var(--primary-red);
+  text-align: center;
+  border-top: 1px solid var(--primary-red);
+  font-size: 0.9rem;
+  font-weight: 500;
+}
+
+/* Responsive Footer */
+@media (max-width: 768px) {
+  .footer-container {
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .footer-section {
+    min-width: 100%;
+    text-align: center;
+  }
+
+  .footer-section h3::after {
+    left: 50%;
+    transform: translateX(-50%);
+  }
+
+  .links {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 1rem;
+  }
+
+  .links li {
+    margin-bottom: 0;
+  }
+
+  .social-links {
+    justify-content: center;
+  }
+}
+
+@media (max-width: 480px) {
+  footer {
+    padding: 2rem 1rem 0;
+  }
+
+  .footer-bottom {
+    padding: 1rem;
+    font-size: 0.8rem;
+  }
+}
