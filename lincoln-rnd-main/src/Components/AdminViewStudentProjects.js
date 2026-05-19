@@ -153,16 +153,27 @@ function List() {
     <div id="content">
       <div className="listbody">
         <div className="list">
-          <div className="tabletop">
-            <h3>Student Projects</h3>
-            <Link className="text-link button" to="/admindash">
+          <header style={{ marginBottom: '2rem', display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
+            <div>
+              <h1 style={{ fontSize: '1.875rem', fontWeight: '700', color: '#0f172a' }}>Student Projects</h1>
+              <p style={{ color: '#64748b' }}>Manage and monitor all student research project submissions.</p>
+            </div>
+            <Link className="text-link" to="/admindash" style={{ 
+              background: '#dc2626', 
+              color: 'white', 
+              padding: '0.6rem 1.2rem', 
+              borderRadius: '0.5rem', 
+              textDecoration: 'none',
+              fontWeight: '600',
+              fontSize: '0.875rem'
+            }}>
               Back To Dashboard
             </Link>
-          </div>
+          </header>
 
           {tableData.length > 0 ? (
-            <div className="table-responsive">
-              <table className="table">
+            <div className="premium-table-wrapper">
+              <table className="premium-table">
                 <thead>
                   <tr>
                     <th>Title</th>

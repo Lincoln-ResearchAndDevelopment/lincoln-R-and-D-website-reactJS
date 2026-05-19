@@ -5,7 +5,9 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Navigation, Pagination } from "swiper/modules";
 import "swiper/css";
 import "swiper/css/navigation";
+import "swiper/css/navigation";
 import "swiper/css/pagination";
+import { Link } from "react-router-dom";
 
 // Floating bubbles background
 const FloatingBubbles = () => (
@@ -55,6 +57,13 @@ const Hero = () => (
         excellence, innovation, and societal impact. We empower faculty and
         students to engage in impactful research across various disciplines.
       </p>
+      <div style={{ marginTop: '20px' }}>
+        <Link to="/psa" className="button" style={{
+          backgroundColor: '#dc2626', color: 'white', padding: '10px 20px', borderRadius: '5px', textDecoration: 'none', fontWeight: 'bold'
+        }}>
+          View Practical Skill Application (PSA)
+        </Link>
+      </div>
     </div>
   </section>
 );
@@ -151,9 +160,89 @@ const Expertise = () => (
   </section>
 );
 
-const ProjectCardHead = () => (
-  <div className="CardHead">Latest Student Projects</div>
-);
+const PSAGallery = () => {
+  const [psaProjects, setPsaProjects] = useState([]);
+
+  useEffect(() => {
+    const fetchData = async () => {
+      try {
+        const response = await fetch(API_ENDPOINT + "get_psa_projects.php");
+        if (!response.ok) throw new Error("Network response was not ok");
+        const result = await response.json();
+        const all = Array.isArray(result.data) ? result.data : [];
+        const latestThree = all.slice(0, 3);
+        setPsaProjects(latestThree);
+      } catch (error) {
+        console.error("Error fetching PSA data:", error);
+      }
+    };
+    fetchData();
+  }, []);
+
+  if (!Array.isArray(psaProjects) || psaProjects.length === 0) {
+    return <h3 className="card-body" style={{ textAlign: "center", marginTop: "2rem" }}>No PSA projects available</h3>;
+  }
+
+  return (
+    <section className="project-pictures" style={{ display: "flex", gap: "1.5rem", flexWrap: "wrap", justifyContent: "center", padding: "2rem 0" }}>
+      {psaProjects.map((project, index) => (
+        <div key={index} style={{
+          background: "white", padding: "1.5rem", borderRadius: "8px", boxShadow: "0 4px 6px rgba(0,0,0,0.1)", width: "320px", borderTop: "4px solid #dc2626", boxSizing: "border-box"
+        }}>
+          <h3 style={{ color: "#111827", marginBottom: "0.5rem", fontSize: "1.2rem" }}>{project.title}</h3>
+          <p style={{ color: "#dc2626", fontWeight: "bold", marginBottom: "0.5rem" }}>{project.student_name}</p>
+          <p style={{ color: "#6b7280", fontSize: "0.9rem", marginBottom: "1rem" }}>{project.department}</p>
+          <div style={{ display: "flex", gap: "10px", flexWrap: "wrap" }}>
+            {project.report_file && (
+              <a href={`${API_ENDPOINT}${project.report_file}`} target="_blank" rel="noopener noreferrer" style={{ color: "#fff", background: "#dc2626", padding: "0.4rem 0.8rem", borderRadius: "5px", textDecoration: "none", fontSize: "0.9rem", fontWeight: "bold" }}>View Report</a>
+            )}
+            {project.live_link && (
+              <a href={project.live_link} target="_blank" rel="noopener noreferrer" style={{ color: "#fff", background: "#111827", padding: "0.4rem 0.8rem", borderRadius: "5px", textDecoration: "none", fontSize: "0.9rem", fontWeight: "bold" }}>Live Link</a>
+            )}
+          </div>
+        </div>
+      ))}
+    </section>
+  );
+};
+
+const LatestProjectsSection = () => {
+  const [activeTab, setActiveTab] = useState('projects');
+
+  return (
+    <div>
+      <div className="CardHead" style={{ display: 'flex', justifyContent: 'center', gap: '30px', alignItems: 'center', marginBottom: '1rem', borderBottom: '2px solid #eee', paddingBottom: '0', fontSize: '1.5rem' }}>
+        <span 
+          onClick={() => setActiveTab('projects')}
+          style={{ 
+            cursor: 'pointer', 
+            borderBottom: activeTab === 'projects' ? '3px solid #dc2626' : '3px solid transparent', 
+            paddingBottom: '10px', 
+            color: activeTab === 'projects' ? '#dc2626' : '#6b7280',
+            fontWeight: activeTab === 'projects' ? 'bold' : 'normal',
+            transition: 'all 0.3s'
+          }}
+        >
+          Latest Student Projects
+        </span>
+        <span 
+          onClick={() => setActiveTab('psa')}
+          style={{ 
+            cursor: 'pointer', 
+            borderBottom: activeTab === 'psa' ? '3px solid #dc2626' : '3px solid transparent', 
+            paddingBottom: '10px', 
+            color: activeTab === 'psa' ? '#dc2626' : '#6b7280',
+            fontWeight: activeTab === 'psa' ? 'bold' : 'normal',
+            transition: 'all 0.3s'
+          }}
+        >
+          PSA Projects
+        </span>
+      </div>
+      {activeTab === 'projects' ? <ProjectGallery /> : <PSAGallery />}
+    </div>
+  );
+};
 
 // ✨ MODERN MODAL WITH SLIDER ✨
 const Modal = ({ project, onClose }) => {
@@ -604,8 +693,7 @@ function Lincoln() {
         <Hero />
         <MissionVision />
         <Expertise />
-        <ProjectCardHead />
-        <ProjectGallery />
+        <LatestProjectsSection />
         <About />
         {/* 🌟 Upgraded Partners Section moved below About */}
         <UpgradedPartners />
