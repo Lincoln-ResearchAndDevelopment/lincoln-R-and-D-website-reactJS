@@ -6,9 +6,9 @@ import Side from "./Side";
 const AdminLayout = () => {
   const { email } = useAuth();
   return (
-    <div style={{ display: "flex" }}>
+    <div className="admin-layout-wrapper">
       <Side email={email} />
-      <div style={{ flex: 1, padding: 24 }}>
+      <div id="content">
         <Outlet />
       </div>
     </div>

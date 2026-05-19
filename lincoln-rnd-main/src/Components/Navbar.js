@@ -76,6 +76,9 @@ const Navbar = () => {
               <Link className='nav-text-link' to="/projectlist" onClick={closeMenu}>Student Projects</Link>
             </li>
             <li>
+              <Link className='nav-text-link' to="/psa" onClick={closeMenu}>PSA</Link>
+            </li>
+            <li>
               <Link className='nav-text-link' to="/membership" onClick={closeMenu}>Membership</Link>
               <ul className="menu-dropdown">
                 <li>

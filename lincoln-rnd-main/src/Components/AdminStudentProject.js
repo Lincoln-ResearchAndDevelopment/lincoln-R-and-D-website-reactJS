@@ -142,14 +142,11 @@ const StudentProject = () => {
                 onChange={(e) => setCategory(e.target.value)}
               >
                 <option value="">Select Category</option>
-                <option value="Healthcare">Healthcare</option>
-                <option value="Agriculture">Agriculture</option>
-                <option value="Security">Security</option>
-                <option value="Environmental Business">
-                  Environmental Business
-                </option>
-                <option value="Technology">Technology</option>
-                <option value="Education">Education</option>
+                <option value="Computer Software Engineering">Computer Software Engineering</option>
+                <option value="English and Mass Communication">English and Mass Communication</option>
+                <option value="Physcology">Physcology</option>
+                <option value="Foundation in Nursing">Foundation in Nursing</option>
+                <option value="Business Administration">Business Administration</option>
               </select>
             </div>
             <div className="form-group">
